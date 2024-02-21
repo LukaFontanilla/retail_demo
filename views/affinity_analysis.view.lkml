@@ -237,6 +237,47 @@ view: order_purchase_affinity {
       #### TO DO: Replace "/3" with id of the [...] dashboards
       url: "/dashboards/TSGWx3mvSYoyNKLKLDssXW?Focus%20Product={{ value | encode_uri }}&Product%20Level={{ _filters['order_items_base.product_level'] | url_encode }}&Analysis%20Timeframe={{ _filters['order_purchase_affinity.affinity_timeframe'] | url_encode }}&Store%20Name={{ _filters['order_purchase_affinity.store_name'] | url_encode }}&Focus%20Category={{ _filters['order_purchase_affinity.product_a_category'] | url_encode }}&Minimum%20Purchase%20Frequency={{ _filters['order_purchase_affinity.product_a_order_frequency'] | url_encode }}"
     }
+    action: {
+      label: "Send this to slack channel"
+      url: "https://hooks.zapier.com/hooks/catch/1662138/tvc3zj/"
+      param: {
+        name: "user_dash_link"
+        value: "/dashboards/ayalascustomerlookupdb?Email={{ users.email._value}}"
+      }
+      form_param: {
+        name: "Message"
+        type: textarea
+        default: "Hey,
+        Could you check out menu item {{value}}. We have a basket margin of {{product_a_average_rest_of_basket_margin._rendered_value}}, compared to other restaurants in the region we would expected this figure to be higher. Can you please investigate?"
+      }
+      form_param: {
+        name: "Recipient"
+        type: select
+        default: "zevl"
+        option: {
+          name: "zevl"
+          label: "Zev"
+        }
+        option: {
+          name: "slackdemo"
+          label: "General"
+        }
+      }
+      form_param: {
+        name: "Channel"
+        type: select
+        default: "cs"
+        option: {
+          name: "cs"
+          label: "Customer Support"
+        }
+        option: {
+          name: "general"
+          label: "Account Team"
+        }
+      }
+    }
+
   }
 
   dimension: product_a_image {
